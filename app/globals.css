@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-slate-400/10;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface-950 text-plat font-sans;
+    font-feature-settings: "cv02", "cv03", "cv04", "tnum";
+  }
+
+  ::selection {
+    background: rgba(6, 182, 212, 0.32);
+    color: #f8fafc;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.45);
+    border-radius: 999px;
+    border: 2px solid rgba(15, 23, 42, 0.8);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.6);
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* Core terminal surface: layered deep-space panel */
+  .panel {
+    @apply bg-surface-900/80 border border-white/[0.06] rounded-xl shadow-panel backdrop-blur-sm;
+  }
+
+  .panel-tight {
+    @apply bg-surface-900/70 border border-white/[0.06] rounded-lg;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between px-4 h-10 border-b border-white/[0.06];
+  }
+
+  .label-caps {
+    @apply text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400;
+  }
+
+  .num {
+    @apply font-mono tabular-nums;
+  }
+
+  .divider-x > * + * {
+    @apply border-l border-white/[0.06];
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-volt/70 focus-visible:ring-offset-0;
+  }
+
+  .grid-surface {
+    background-image: linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+    background-size: 34px 34px;
+  }
+
+  .ticker-mask {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  }
+
+  .row-hover {
+    @apply transition-colors duration-150 hover:bg-white/[0.035];
+  }
+
+  /* Animated gradient headline text */
+  .text-gradient-flow {
+    background-image: linear-gradient(
+      90deg,
+      #06b6d4 0%,
+      #22d3ee 22%,
+      #8b5cf6 45%,
+      #22d3ee 70%,
+      #06b6d4 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: text-flow 5.5s linear infinite;
+  }
+
+  /* Specular sweep across primary actions on hover */
+  .shine-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine-sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 32%,
+      rgba(255, 255, 255, 0.42) 50%,
+      transparent 68%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .shine-sweep:hover::after,
+  .shine-sweep:focus-visible::after {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes text-flow {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  .text-glow-bull {
+    text-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+  }
+  .text-glow-bear {
+    text-shadow: 0 0 18px rgba(239, 68, 68, 0.45);
+  }
+  .text-glow-volt {
+    text-shadow: 0 0 18px rgba(6, 182, 212, 0.55);
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}
